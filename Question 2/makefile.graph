@@ -1,0 +1,26 @@
+LIBNAME = libgraphlib.a
+OBJFILES = llist.o stack.o queue.o union_find.o graph.o
+HEADFILES = llist.h stack.h queue.h union_find.h graph.h dyn_lib.h
+LIBDIR = /usr/include/lib
+INCLUDEDIR = /usr/include
+INCLUDESUBDIR = /usr/include/graphlib
+
+library: $(OBJFILES)
+	ar rcs $(LIBNAME) $(OBJFILES)
+
+llist.o:llist.h
+stack.o:stack.h
+queue.o:queue.h
+union_find.o:union_find.h
+graph.o:graph.h
+
+install: library
+	-mkdir $(INCLUDESUBDIR)
+	sudo cp $(LIBNAME) $(LIBDIR)
+	sudo cp $(HEADFILES) $(INCLUDESUBDIR)
+
+remove:
+	rm -f $(OBJFILES)
+
+libremove:
+	rm -f $(OBJFILES) $(LIBNAME)
